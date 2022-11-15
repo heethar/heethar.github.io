@@ -36,12 +36,66 @@
     </div> <div class="container">
         <div class="row">
           <div class="col-sm-8 blog-main">
+
+            <div class="blog-post">
+              <hr> <h2 class="blog-post-title">UART USB Serial Converter</h2>
+            <p class="blog-post-meta">November 14, 2022 by <a href="#">H</a></p>
+            <hr>
+            <p>To make a UART converter is quite simple and there are a couple of options of implementation using the ESP-32S by NodeMCU.  </p>
+            1. Using any 2 GPIO pins for Rx / Tx.<br>
+            2. Using the prescibed Rx / Tx pins.<p></p>
+            <p>My environment is an Arch Linux build using the Arduino IDE. Here are instructions on building your very own Arduino IDE.<br>
+            Next there needed to be a board support package to shove into this IDE. <br>
+          Upon compilation it was determined that there was no serial library to compile. Greeted with this error:<br>
+          <code>import serial<br>
+          ImportError: No module named serial</code><br>
+          As it turns out, it's a python module to be downloaded and I did not have pip, either. <br>
+          <code>sudo pacman -S python-pip<br></code> then <br><code>
+          pip install pyserial</code> <br>
+          We are almost there, ladies and gentlemen. <br>
+          Come to compile again and everything checks out. Going to flash it to the board now to find another error: <br>
+          <code>Serial port /dev/ttyUSB0<br>
+            File "~/.local/lib/python3.10/site-packages/serial/serialposix.py", line 322, in open self.fd = os.open(self.portstr, os.O_RDWR | os.O_NOCTTY | os.O_NONBLOCK)<br>
+          PermissionError: [Errno 13] Permission denied: '/dev/ttyUSB0'</code>
+        <br>
+        <code>usermod -aG YOURUSERHERE</code>
+        </p>
+            <p><h5>Using the prescribed Rx / Tx pins:</h5></p>
+            <p><h5>Using any GPIO pins as Rx / Tx:</h5></p>
+            A substantial amount of help came from <a href="https://techoverflow.net/2021/11/19/how-to-use-esp32-as-usb-to-uart-converter-in-platformio/">this source</a><br>
+            <code>#include <Arduino.h><br>
+              #define UART_RX_PIN 2 // GPIO2<br>
+              #define UART_TX_PIN 4 // GPIO4<br>
+              
+              void setup() {<br>
+                // Serial connects to the computer<br>
+                Serial.begin(115200);<br>
+                // Serial2 is the hardware UART port that connects to external circuitry<br>
+                // 115200 is the baudrate expected for UART. 
+                Serial2.begin(115200, SERIAL_8N1,<br>
+                              UART_RX_PIN,<br>
+                              UART_TX_PIN);<br>
+              }<br><br>
+              
+              void loop() {<br>
+                // Copy byte incoming via PC serial<br>
+                while (Serial.available() > 0) {<br>
+                  Serial2.write(Serial.read());<br>
+                }<br>
+                // Copy bytes incoming via UART serial<br>
+                while (Serial2.available() > 0) {<br>
+                  Serial.write(Serial2.read());<br>
+                }<br>
+              }</code>
+          </div>
+
+
             <div class="blog-post">
               <hr> <h2 class="blog-post-title">TODO: Encryption Adventures</h2>
             <p class="blog-post-meta">November 10, 2022 by <a href="#">H</a></p>
             <hr>
             <p>
-          External driive </p><br>
+          Someone gifted me a Western Digital external harddrive promoting its encryption features. </p><br>
           <h5>What I learned about LUKS:</h5>
           These days (since update 1.61), LUKS defaults to using AES-XTS-Plain64 encryption, much better than the previous defaults.
           <br>
