@@ -44,7 +44,7 @@
             <p>To make a UART converter is quite simple and there are a couple of options of implementation using the ESP-32S by NodeMCU.  </p>
             1. Using any 2 GPIO pins for Rx / Tx.<br>
             2. Using the prescibed Rx / Tx pins.<p></p>
-            <p>My environment is an Arch Linux build using the Arduino IDE. <a href="https://www.arduino.cc/en/Guide/Linux/">Here are instructions on building your very own Arduino IDE.</a><br>
+            <p>My environment is an Arch Linux build using the Arduino IDE. <a href="https://www.arduino.cc/en/Guide/Linux/" target="_blank">Here are instructions on building your very own Arduino IDE.</a><br>
             Next there needed to be a board support package to shove into this IDE. <br>
           Upon compilation it was determined that there was no serial library to compile. Greeted with this error:<br>
           <code>import serial<br>
@@ -65,7 +65,7 @@
         </p>
             <p><h5>Using the prescribed Rx / Tx pins:</h5></p>
             <p><h5>Using any GPIO pins as Rx / Tx:</h5></p>
-            A substantial amount of help came from <a href="https://techoverflow.net/2021/11/19/how-to-use-esp32-as-usb-to-uart-converter-in-platformio/">this source</a><br>
+            A substantial amount of help came from <a href="https://techoverflow.net/2021/11/19/how-to-use-esp32-as-usb-to-uart-converter-in-platformio/" target="_blank">this source</a><br>
             <code>#include <Arduino.h><br>
               #define UART_RX_PIN 2 // GPIO2<br>
               #define UART_TX_PIN 4 // GPIO4<br>
