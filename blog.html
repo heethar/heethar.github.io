@@ -44,7 +44,7 @@
             <p>To make a UART converter is quite simple and there are a couple of options of implementation using the ESP-32S by NodeMCU.  </p>
             1. Using any 2 GPIO pins for Rx / Tx.<br>
             2. Using the prescibed Rx / Tx pins.<p></p>
-            <p>My environment is an Arch Linux build using the Arduino IDE. Here are instructions on building your very own Arduino IDE.<br>
+            <p>My environment is an Arch Linux build using the Arduino IDE. <a href="https://www.arduino.cc/en/Guide/Linux/">Here are instructions on building your very own Arduino IDE.</a><br>
             Next there needed to be a board support package to shove into this IDE. <br>
           Upon compilation it was determined that there was no serial library to compile. Greeted with this error:<br>
           <code>import serial<br>
@@ -55,10 +55,13 @@
           We are almost there, ladies and gentlemen. <br>
           Come to compile again and everything checks out. Going to flash it to the board now to find another error: <br>
           <code>Serial port /dev/ttyUSB0<br>
-            File "~/.local/lib/python3.10/site-packages/serial/serialposix.py", line 322, in open self.fd = os.open(self.portstr, os.O_RDWR | os.O_NOCTTY | os.O_NONBLOCK)<br>
+            File "/home/YOURUSERHERE/.local/lib/python3.10/site-packages/serial/serialposix.py", line 322, in open self.fd = os.open(self.portstr, os.O_RDWR | os.O_NOCTTY | os.O_NONBLOCK)<br>
           PermissionError: [Errno 13] Permission denied: '/dev/ttyUSB0'</code>
         <br>
-        <code>usermod -aG YOURUSERHERE</code>
+        Permissions can be checked using<br>
+        <code>ls -lash /dev/tty*</code><br>
+        in this case,  
+        <code>usermod -aG YOURUSERHERE uucp</code> - but it will be wise to remove yourself from this group after flashing.<br>
         </p>
             <p><h5>Using the prescribed Rx / Tx pins:</h5></p>
             <p><h5>Using any GPIO pins as Rx / Tx:</h5></p>
@@ -71,7 +74,7 @@
                 // Serial connects to the computer<br>
                 Serial.begin(115200);<br>
                 // Serial2 is the hardware UART port that connects to external circuitry<br>
-                // 115200 is the baudrate expected for UART. 
+                // 115200 is the baudrate expected for UART. <br>
                 Serial2.begin(115200, SERIAL_8N1,<br>
                               UART_RX_PIN,<br>
                               UART_TX_PIN);<br>
@@ -86,7 +89,9 @@
                 while (Serial2.available() > 0) {<br>
                   Serial.write(Serial2.read());<br>
                 }<br>
-              }</code>
+              }</code><br>
+              Screen command for setting baudrate on your TTY port:<br>
+              <code>screen /dev/ttyUSB0 115200</code>
           </div>
 
 
