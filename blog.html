@@ -47,8 +47,8 @@
             <p>My environment is an Arch Linux build using the Arduino IDE. <a href="https://www.arduino.cc/en/Guide/Linux/" target="_blank">Here are instructions on building your very own Arduino IDE.</a><br>
             Next there needed to be a board support package to shove into this IDE. <br>
           Upon compilation it was determined that there was no serial library to compile. Greeted with this error:<br>
-          <code>import serial<br>
-          ImportError: No module named serial</code><br>
+          <samp></samp><code>import serial<br>
+          ImportError: No module named serial</code></samp><br>
           As it turns out, it's a python module to be downloaded and I did not have pip, either. <br>
           <code>sudo pacman -S python-pip<br></code> then <br><code>
           pip install pyserial</code> <br>
@@ -96,16 +96,14 @@
 
 
             <div class="blog-post">
-              <hr> <h2 class="blog-post-title">TODO: Encryption Adventures</h2>
-            <p class="blog-post-meta">November 10, 2022 by <a href="#">H</a></p>
+              <hr> <h2 class="blog-post-title">Encrypting External Harddrive</h2>
+            <p class="blog-post-meta">November 10, 2022 (edit: December 20, 2022) by <a href="#">H</a></p>
             <hr>
             <p>
-          Someone gifted me a Western Digital external harddrive promoting its encryption features. </p><br>
-          <h5>What I learned about LUKS:</h5>
-          These days (since update 1.61), LUKS defaults to using AES-XTS-Plain64 encryption, much better than the previous defaults.
-          <br>
-          LUKS needs a file system to encrypt if you want to have an easy life.
-          </div>
+          Someone gifted me a Western Digital external harddrive promoting its encryption features. It was quickly determined that other encryption methods should be immediately considered.</p>
+          Since
+          <a href="https://gitlab.com/cryptsetup/cryptsetup">cryptsetup</a> was already installed, I decided to go with that. The most confusing problem I ran into was not including a filesystem.
+            </div>
 
             <div class="blog-post">
                 <hr> <h2 class="blog-post-title">Creating a blog...</h2>
